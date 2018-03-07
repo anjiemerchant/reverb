@@ -33,6 +33,7 @@ if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
 
   passport.use(new SpotifyStrategy(spotifyConfig,
   (accessToken, refreshToken, profile, done) => {
+    console.log('access token', accessToken)
     User.find({where: {spotifyId: profile.id}})
       .then(foundUser => foundUser
       ? done(null, foundUser)
