@@ -1,6 +1,6 @@
 const passport = require('passport')
 const router = require('express').Router()
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
+const SpotifyStrategy = require('passport-spotify').Strategy;
 const {User} = require('../db/models')
 module.exports = router
 
@@ -18,37 +18,39 @@ module.exports = router
  * process.env.GOOGLE_CALLBACK = '/your/google/callback'
  */
 
-if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
 
-  console.log('Google client ID / secret not found. Skipping Google OAuth.')
+  console.log('Spotify client ID / secret not found. Skipping Google OAuth.')
 
 } else {
 
-  const googleConfig = {
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK
+  const spotifyConfig = {
+    clientID: process.env.SPOTIFY_CLIENT_ID,
+    clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+    callbackURL: process.env.SPOTIFY_CALLBACK
   }
 
-  const strategy = new GoogleStrategy(googleConfig, (token, refreshToken, profile, done) => {
-    const googleId = profile.id
-    const name = profile.displayName
-    const email = profile.emails[0].value
 
-    User.find({where: {googleId}})
-      .then(foundUser => (foundUser
-        ? done(null, foundUser)
-        : User.create({name, email, googleId})
+  passport.use(new SpotifyStrategy(spotifyConfig,
+  (accessToken, refreshToken, profile, done) => {
+    User.find({where: {spotifyId: profile.id}})
+      .then(foundUser => foundUser
+      ? done(null, foundUser)
+      : User.create({
+        spotifyId: profile.id,
+        name: profile.displayName,
+        accessToken: accessToken,
+        refreshToken: refreshToken
+      })
           .then(createdUser => done(null, createdUser))
-      ))
+      )
       .catch(done)
-  })
+    })
+  )
 
-  passport.use(strategy)
+  router.get('/', passport.authenticate('spotify', {scope: ['user-top-read user-read-recently-played user-read-currently-playing']}))
 
-  router.get('/', passport.authenticate('google', {scope: 'email'}))
-
-  router.get('/callback', passport.authenticate('google', {
+  router.get('/callback', passport.authenticate('spotify', {
     successRedirect: '/home',
     failureRedirect: '/login'
   }))
