@@ -6,7 +6,7 @@ import {logout} from '../store'
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
-    <h1>High Frequency</h1>
+    <h1>Reverb</h1>
     <nav>
       {isLoggedIn ? (
         <div>
@@ -15,6 +15,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <Link to="/songs">Top Songs</Link>
         </div>
       ) : (
         <div>

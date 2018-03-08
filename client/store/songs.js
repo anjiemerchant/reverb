@@ -10,7 +10,7 @@ const getAllSongs = songs => ({
   });
 
 // reducer
-export default (songs = [], action) => {
+export default (songs = {}, action) => {
   switch (action.type) {
     case GET_ALL_SONGS:
       return action.songs;
@@ -23,7 +23,7 @@ export default (songs = [], action) => {
 // thunk creators
 export const fetchSongs = accessToken => {
   return dispatch => {
-    return axios.post('/api/top/tracks', accessToken)
+    return axios.post('/api/top', {accessToken})
       .then(res => res.data)
       .then(songs => dispatch(getAllSongs(songs)))
       .catch(err => console.error('error fetching songs', err))

@@ -1,18 +1,25 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import { fetchSongs } from '../store'
 
 /**
  * COMPONENT
  */
-export const UserHome = (props) => {
-  const {name} = props
+class UserHome extends Component {
+
+  componentDidMount(){
+    this.props.fetchSongs(this.props.accessToken);
+  }
+
+  render() {
 
   return (
     <div>
-      <h3>Welcome, {name}</h3>
+      <h3>Welcome, {this.props.name}</h3>
     </div>
   )
+}
 }
 
 /**
@@ -20,11 +27,15 @@ export const UserHome = (props) => {
  */
 const mapState = (state) => {
   return {
-    name: state.user.name
+    name: state.user.name,
+    accessToken: state.user.accessToken
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatch = { fetchSongs }
+
+
+export default connect(mapState, mapDispatch)(UserHome)
 
 /**
  * PROP TYPES
