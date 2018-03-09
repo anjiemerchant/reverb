@@ -35,22 +35,27 @@ class BarChart extends Component {
       const x = scaleBand().rangeRound([0, width]).padding(0.1)
       const y = scaleLinear().rangeRound([height, 0])
 
-      // var xAxis = node.axis()
-      //       .scale(x)
-      //       .orient("bottom")
-      //       .ticks(7);
+      var xAxis = axisBottom(x)
 
-      // var yAxis = node.axis()
-      //       .scale(y)
-      //       .orient("left")
-      //       .ticks(10);
-      // var g = node.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      var yAxis = axisLeft(y)
 
       x.domain(this.props.data.map(function(d) { return d.trait; }));
 
       y.domain([0, max(this.props.data, function(d) { return d.value; })])
 
-//       g.append("g")
+      select(node)
+        .selectAll('rect')
+        .data(this.props.data)
+        .enter()
+        .append('rect')
+
+      select(node)
+        .selectAll('rect')
+        .data(this.props.data)
+        .exit()
+        .remove()
+
+      //       g.append("g")
 //       .attr("class", "axis axis--x")
 //       .attr("transform", "translate(0," + height + ")")
 //       .call(axisBottom(x));
@@ -65,77 +70,69 @@ class BarChart extends Component {
 //       .attr("text-anchor", "end")
 //       .text("Frequency");
 
-//       g.selectAll(".bar")
-//       .data(this.props.data)
-//       .enter().append("rect")
-//         .attr("class", "bar")
-//         .attr("x", function(d) { return x(d.trait); })
-//         .attr("y", function(d) { return y(d.value); })
-//         .attr("width", x.bandwidth())
-//         .attr("height", function(d) { return height - y(d.value); });
-
-        select(node)
-        .selectAll('rect')
-        .data(this.props.data)
-        .enter()
-        .append('rect')
-
      select(node)
         .selectAll('rect')
         .data(this.props.data)
-        .exit()
-        .remove()
-
-     select(node)
-        .selectAll('rect')
-        .data(this.props.data)
-        .style('fill', '#fe9922')
+        .style('fill', '#4A6FA5')
         .attr("x", function(d) { return x(d.trait); })
         .attr("y", function(d) { return y(d.value); })
         .attr("height", function(d) { return height - y(d.value); })
         .attr("width", x.bandwidth())
+
+      select(node)
+        .append('g')
+        .classed('x axis', true)
+        .attr('transform', 'translate(0,' + height + ')')
+        .call(xAxis)
+
+        select(node)
+        .append('g')
+        .classed('y axis', true)
+        .call(yAxis)
+
   }
 
 render() {
       return (
-      <div>
-            <svg ref={node => this.node = node} width={500} height={500} />
+      <div className="container">
+            <svg className="barchart" ref={node => this.node = node} width={700} height={500} />
+            <div>
+                  <h3>Measure definitions, <a href="https://developer.spotify.com/web-api/object-model/#audio-features-object">according to Spotify</a></h3>
+                  <ul>
 
-            <h3>Measure definitions, <a href="https://developer.spotify.com/web-api/object-model/#audio-features-object">according to Spotify</a></h3>
-            <ul>
+                  <li>
+                  <p><b>Acousticness</b></p>
+                  <p>A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.</p>
+                  </li>
 
-            <li>
-            <p><b>Acousticness</b></p>
-            <p>A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.</p>
-            </li>
+                  <li>
+                  <p><b>Danceability</b></p>
+                  <p> Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.</p>
+                  </li>
 
-            <li>
-            <p><b>Danceability</b></p>
-            <p> Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.</p>
-            </li>
+                  <li>
+                  <p><b>Energy</b></p>
+                  <p>Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.</p>
+                  </li>
 
-            <li>
-            <p><b>Energy</b></p>
-            <p>Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.</p>
-            </li>
+                  <li>
+                  <p><b>Instrumentalness</b></p>
+                  <p>Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.</p>
+                  </li>
 
-            <li>
-            <p><b>Instrumentalness</b></p>
-            <p>Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.</p>
-            </li>
+                  <li>
+                  <p><b>Speechiness</b></p>
+                  <p>Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.</p>
+                  </li>
 
-            <li>
-            <p><b>Speechiness</b></p>
-            <p>Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.</p>
-            </li>
+                  <li>
+                  <p><b>Valence</b></p>
+                  <p> A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
+                  </p>
+                  </li>
 
-            <li>
-            <p><b>Valence</b></p>
-            <p> A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
-            </p>
-            </li>
-
-            </ul>
+                  </ul>
+            </div>
       </div>
       )
 

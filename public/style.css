@@ -1,5 +1,7 @@
 body {
-  font-family: "Nanum Gothic"
+  font-family: "Nanum Gothic";
+  background-color: #FFFDF4;
+  margin: 0px;
 }
 
 h1 {
@@ -10,16 +12,70 @@ a {
   text-decoration: none;
 }
 
+h4 {
+  text-decoration: none;
+}
+
 label {
   display: block;
+}
+
+p {
+  font-size: 0.8em;
+}
+
+ul {
+ list-style-type: none;
+}
+
+h3 {
+  text-decoration: underline;
 }
 
 nav a {
   display: inline-block;
   margin: 1em;
+  color:  #FFFDF4;
+}
+
+.nav {
+  border-bottom: 2px solid rgb(0,0,0);padding-bottom:10px;
+  background-color:   #3C153B;
+  color: #FFFDF4;
+}
+
+.nav-img {
+  height: 50px;
+  width: auto;
+  padding: 10px;
 }
 
 form div {
   margin: 1em;
   display: inline-block;
 }
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main {
+  padding: 10px;
+}
+
+.album-display {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.album-thumnail {
+  width: 25%;
+  height: auto;
+}
+
+.top-song {
+  margin: 10px;
+}
+

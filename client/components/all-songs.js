@@ -4,20 +4,21 @@ import { Link } from 'react-router-dom';
 import { fetchSongs } from '../store'
 
 const AllSongs = props => (
-        <div>
-          <h3>Your Top 50</h3>
-          <p>Below is a list of the 50 songs you've played most on Spotify over the past several years. Click on any to see how it rates in terms of acousticness, danceability, energy, instrumentalness, spechiness, and valence.</p>
-          <ol>
+        <div className="main">
+          <h2>Your Top 10</h2>
+          <h4>Below is a list of the ten songs you've played most on Spotify over the past several years. Click on any to see how it rates in terms of acousticness, danceability, energy, instrumentalness, spechiness, and valence. Defintions included after the click.</h4>
+          <div className="album-display">
           {props.songs && props.songs.map(song => {
             return (
-              <Link key={song.id} to={`/songs/${song.id}`}>
-              <li>
+              <div key={song.id} className="top-song">
+              <Link to={`/songs/${song.id}`}>
                 <p>{song.name} by {song.artists[0].name}</p>
-              </li>
+                <img className="album-thumbmail" src={song.album.images[0].url} />
               </Link>
+              </div>
             )
           })}
-          </ol>
+          </div>
         </div>
 
 )
@@ -27,7 +28,7 @@ const AllSongs = props => (
 const mapState = (state) => {
   return {
     accessToken: state.user.accessToken,
-    songs: state.songs
+    songs: state.songs.slice(0, 10)
   }
 }
 

@@ -15,8 +15,8 @@ class UserHome extends Component {
   render() {
 
   return (
-    <div>
-      <h3>Welcome, {this.props.name}</h3>
+    <div className="main">
+      <h2>Hey, {this.props.name}</h2>
     </div>
   )
 }

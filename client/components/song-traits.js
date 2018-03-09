@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSongTraits } from '../store'
-import { BarChart} from './bar-chart'
+import BarChart from './bar-chart'
 
 class SongTraits extends Component {
 
@@ -34,13 +34,14 @@ class SongTraits extends Component {
     if (!this.state.songTraits) return <div />;
     else {
       return (
-          <div>
+          <div className="main">
             <h2>{songName} by {songArtists}</h2>
-            <div>{this.state.songTraits.length && this.state.songTraits.map(trait => { return (
+            {/* <div>{this.state.songTraits.length && this.state.songTraits.map(trait => { return (
               <div key={trait.index}>
                 {trait.trait}: {trait.value}
               </div>
-             ) })} </div>
+             ) })} </div> */}
+            <BarChart data={this.state.songTraits} size={[500, 500]} />
           </div>
       )
     }

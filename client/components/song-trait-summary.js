@@ -31,10 +31,9 @@ class SongTraitSummary extends Component {
   render() {
     if (!this.state.allSongTraits) return <div />;
     else {
-      console.log('this.state.allSongTraits', this.state.allSongTraits)
       return (
-        <div>
-          <p>A quantitative summary of your music taste, derived from averaging the follow measures across your top 50 songs:</p>
+        <div className="main">
+          <h2>A quantitative summary of your music taste, derived from averaging the follow measures across top songs (n = 50)</h2>
           <BarChart data={this.state.allSongTraits} size={[500, 500]} />
         </div>
       )

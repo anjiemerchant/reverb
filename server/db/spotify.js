@@ -1,6 +1,6 @@
 
 module.exports = {
-  top: (accessToken) => ({
+  top: accessToken => ({
     url: `https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50`,
     headers: {
       'Accept': 'application/json',
