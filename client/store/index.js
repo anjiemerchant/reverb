@@ -5,9 +5,10 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import songTraits from './songTraits'
 import songs from './songs'
+import allSongTraits from './allSongTraits'
 
 
-const reducer = combineReducers({user, songTraits, songs})
+const reducer = combineReducers({user, songTraits, songs, allSongTraits})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -18,3 +19,4 @@ export default store
 export * from './user'
 export * from './songTraits'
 export * from './songs'
+export * from './allSongTraits'

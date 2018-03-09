@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, AllSongs, SongTraits} from './components'
+import {Login, Signup, UserHome, AllSongs, SongTraits, SongTraitSummary} from './components'
 import {me} from './store'
 
 /**
@@ -21,6 +21,7 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/top/summary" component={SongTraitSummary} />
         <Route exact path="/songs" component={AllSongs} />
         <Route path="/songs/:songId" component={SongTraits} />
         {
