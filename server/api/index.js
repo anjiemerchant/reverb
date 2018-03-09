@@ -14,18 +14,14 @@ router.post('/top', (req, res, next) => {
     console.log('error', error);
 
     // if (body.error.status === 401) {
-    //   // need to add this to the req.body
-    //   let newOptions = spotify.refreshUserAccess(req.body.refreshToken)
-
-    //   request.post(newOptions, (error, response, body) => {
-
-        //User.findOne({where: {spotifyId: req.body.spotifyId}})
-        //.then(user => user.update({accessToken: response.access_token}))
-        // response.access_token
-    //   }
+    // //   // need to add this to the req.body:
+    //   req.requestOptArr = [];
+    //   req.requestCallback = spotify.top
+    //   next()
+    // } else {
+    //   // send response instead of pipe
     // }
-    // not 401 then send the data back (and done)
-    // else [401 (unauthorized)] request the refresh -- then make request again
+
   }).pipe(res)
 });
 
@@ -35,7 +31,17 @@ router.post('/top/summary', (req, res, next) => {
     console.log('error', error);
     console.log('response', response);
     console.log('body', body);
-  }).pipe(res)
+
+    // if (body.error && body.error.status === 401) {
+    //     req.requestOptArr = req.body.ids;
+    //     req.requestCallback = spotify.featuresAggregate // will need to be invoked with accessToken THEN options
+    //     next()
+    //   } else {
+    //     // do the returning instead of pipe
+    //     //e.g. res.send(body)
+    //   }
+  })
+  .pipe(res)
 });
 
 // https://developer.spotify.com/web-api/get-audio-features/
@@ -46,6 +52,13 @@ router.post('/songs/:id', (req, res, next) => {
     console.log('error', error);
     console.log('response', response);
     console.log('body', body);
+    // if (body.error.status === 401) {
+    //   // ALTERNATE TO PREVIOUS EXAMPLE
+    //   req.requestCallback = spotify.featuresReverse.bind(null, req.params.id) // so now req.requestCallback just has to be invoked with accesstoken
+    //   next()
+    // } else {
+    //   // do the returning instead of pipe (i.e. res.send())
+    // }
   }).pipe(res)
 });
 

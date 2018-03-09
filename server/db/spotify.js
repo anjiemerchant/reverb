@@ -20,6 +20,14 @@ module.exports = {
       'Content-Type': 'application/json'
     }
   }),
+  featuresReverse: (id, accessToken)  => ({
+    url: `https://api.spotify.com/v1/audio-features/${id}`,
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + accessToken,
+      'Content-Type': 'application/json'
+    }
+  }),
   featuresAggregate: (accessToken, ids) => {
     const stringDelimitedIds = ids.join(',')
     return {

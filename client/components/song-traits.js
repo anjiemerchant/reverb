@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSongTraits } from '../store'
 import BarChart from './bar-chart'
+import TestBarChart from './test-bar-chart'
 
 class SongTraits extends Component {
 
@@ -31,7 +32,7 @@ class SongTraits extends Component {
     const songName = song.name || ''
     const songArtists = song.artists ? song.artists[0].name : []
 
-    if (!this.state.songTraits) return <div />;
+    if (!this.state.songTraits[0].value) return <div />;
     else {
       return (
           <div className="main">
@@ -41,7 +42,8 @@ class SongTraits extends Component {
                 {trait.trait}: {trait.value}
               </div>
              ) })} </div> */}
-            <BarChart data={this.state.songTraits} size={[500, 500]} />
+            {/* <BarChart data={this.state.songTraits} size={[500, 500]} /> */}
+            <TestBarChart data={this.state.songTraits} />
           </div>
       )
     }

@@ -10,21 +10,25 @@ a {
 
 
 h1 {
-  font-family: "Chelsea Market"
+  font-family: "Chelsea Market";
+  color: white;
 }
 
 h2 {
   margin-bottom: none;
+  color: #011936;
 }
 
 
 h3 {
   text-decoration: underline;
+  color: #011936;
 }
 
 
 h4 {
   text-decoration: none;
+  color: #011936;
 }
 
 label {
@@ -32,7 +36,8 @@ label {
 }
 
 p {
-  font-size: 0.8em;
+  font-size: 1em;
+  color:#011936
 }
 
 ul {
@@ -101,5 +106,11 @@ form div {
 }
 
 .center-text {
+  text-align: center;
+}
+
+.chart {
+  height: 75%;
+  width: auto;
   text-align: center;
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAllSongTraits } from '../store'
 import BarChart from './bar-chart'
+import TestBarChart from './test-bar-chart'
 
 
 class SongTraitSummary extends Component {
@@ -34,7 +35,8 @@ class SongTraitSummary extends Component {
       return (
         <div className="main">
           <h2>A quantitative summary of your music taste, derived from averaging the follow measures across top songs (n = 50)</h2>
-          <BarChart data={this.state.allSongTraits} size={[500, 500]} />
+          {/* <BarChart data={this.state.allSongTraits} size={[500, 500]} /> */}
+          <TestBarChart data={this.state.allSongTraits} />
         </div>
       )
     }
