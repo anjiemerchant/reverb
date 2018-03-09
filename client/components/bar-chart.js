@@ -28,20 +28,22 @@ class BarChart extends Component {
      // Render is just returning an SVG element waiting for your D3 code. Below we’ll see how to use React to generate the entire chart.
 
       const node = this.node
-      const margin = {top: 20, right: 20, bottom: 30, left: 40};
+      const margin = {top: 20, right: 20, bottom: 30, left: 50};
       const width = this.props.size[0] - margin.left - margin.right;
       const height = this.props.size[1] - margin.top - margin.bottom;
 
-      const x = scaleBand().rangeRound([0, width]).padding(0.1)
-      const y = scaleLinear().rangeRound([height, 0])
+      const x = scaleBand()
+                .rangeRound([0, width]).padding(0.1)
+                .domain(this.props.data.map(function(d) { return d.trait; }));
+
+      const y = scaleLinear()
+                .rangeRound([height, 0])
+                .domain([0, 1])
+                // .domain([0, max(this.props.data, function(d) { return d.value; })])
 
       var xAxis = axisBottom(x)
 
-      var yAxis = axisLeft(y)
-
-      x.domain(this.props.data.map(function(d) { return d.trait; }));
-
-      y.domain([0, max(this.props.data, function(d) { return d.value; })])
+      var yAxis = axisLeft(y).ticks(10)
 
       select(node)
         .selectAll('rect')
@@ -55,25 +57,10 @@ class BarChart extends Component {
         .exit()
         .remove()
 
-      //       g.append("g")
-//       .attr("class", "axis axis--x")
-//       .attr("transform", "translate(0," + height + ")")
-//       .call(axisBottom(x));
-
-//       g.append("g")
-//       .attr("class", "axis axis--y")
-//       .call(axisLeft(y).ticks(10, "%"))
-//     .append("text")
-//       .attr("transform", "rotate(-90)")
-//       .attr("y", 6)
-//       .attr("dy", "0.71em")
-//       .attr("text-anchor", "end")
-//       .text("Frequency");
-
      select(node)
         .selectAll('rect')
         .data(this.props.data)
-        .style('fill', '#4A6FA5')
+        .style('fill', '#473144')
         .attr("x", function(d) { return x(d.trait); })
         .attr("y", function(d) { return y(d.value); })
         .attr("height", function(d) { return height - y(d.value); })
@@ -84,6 +71,7 @@ class BarChart extends Component {
         .classed('x axis', true)
         .attr('transform', 'translate(0,' + height + ')')
         .call(xAxis)
+        .append()
 
         select(node)
         .append('g')

@@ -1,5 +1,5 @@
 body {
-  font-family: "Nanum Gothic";
+  font-family: "Open Sans";
   background-color: #FFFDF4;
   margin: 0px;
 }
@@ -40,7 +40,7 @@ nav a {
 
 .nav {
   border-bottom: 2px solid rgb(0,0,0);padding-bottom:10px;
-  background-color:   #3C153B;
+  background-color:   #af1b3f;
   color: #FFFDF4;
 }
 
@@ -70,12 +70,13 @@ form div {
   flex-wrap: wrap;
 }
 
-.album-thumnail {
-  width: 25%;
+.album-thumbmail {
+  width: 20%;
   height: auto;
 }
 
 .top-song {
   margin: 10px;
+  flex: 0 0 50%;
 }
 
