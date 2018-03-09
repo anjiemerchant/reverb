@@ -9,10 +9,21 @@ router.post('/top', (req, res, next) => {
   let options = spotify.top(req.body.accessToken)
 
   request.get(options, (error, response, body) => {
-    console.log('error', error);
     console.log('response', response);
     console.log('body', body);
+    console.log('error', error);
 
+    // if (body.error.status === 401) {
+    //   // need to add this to the req.body
+    //   let newOptions = spotify.refreshUserAccess(req.body.refreshToken)
+
+    //   request.post(newOptions, (error, response, body) => {
+
+        //User.findOne({where: {spotifyId: req.body.spotifyId}})
+        //.then(user => user.update({accessToken: response.access_token}))
+        // response.access_token
+    //   }
+    // }
     // not 401 then send the data back (and done)
     // else [401 (unauthorized)] request the refresh -- then make request again
   }).pipe(res)

@@ -38,12 +38,12 @@ class BarChart extends Component {
 
       const y = scaleLinear()
                 .rangeRound([height, 0])
-                .domain([0, 1])
-                // .domain([0, max(this.props.data, function(d) { return d.value; })])
+                // .domain([0, 1])
+                .domain([0, max(this.props.data, function(d) { return d.value; }) + 0.1])
 
       var xAxis = axisBottom(x)
 
-      var yAxis = axisLeft(y).ticks(10)
+      // var yAxis = axisLeft(y).ticks(10)
 
       select(node)
         .selectAll('rect')
@@ -51,11 +51,23 @@ class BarChart extends Component {
         .enter()
         .append('rect')
 
+      // select(node)
+      //   .selectAll('text.bar')
+      //   .data(this.props.data)
+      //   .enter()
+      //   .append('rect')
+
       select(node)
         .selectAll('rect')
         .data(this.props.data)
         .exit()
         .remove()
+
+      // select(node)
+      //   .selectAll('text.bar')
+      //   .data(this.props.data)
+      //   .exit()
+      //   .remove()
 
      select(node)
         .selectAll('rect')
@@ -67,16 +79,24 @@ class BarChart extends Component {
         .attr("width", x.bandwidth())
 
       select(node)
+        .selectAll("text.bar")
+        .data(this.props.data)
+        .attr("class", "bar")
+        .attr("text-anchor", "middle")
+        .attr("x", function(d) { return x(d.trait) + 20; })
+        .attr("y", function(d) { return y(d.value) - 5; })
+        .text(function(d) { if (d.value) return Number(d.value).toFixed(2); });
+
+      select(node)
         .append('g')
         .classed('x axis', true)
         .attr('transform', 'translate(0,' + height + ')')
         .call(xAxis)
-        .append()
 
-        select(node)
-        .append('g')
-        .classed('y axis', true)
-        .call(yAxis)
+        // select(node)
+        // .append('g')
+        // .classed('y axis', true)
+        // .call(yAxis)
 
   }
 
@@ -85,7 +105,7 @@ render() {
       <div className="container">
             <svg className="barchart" ref={node => this.node = node} width={700} height={500} />
             <div>
-                  <h3>Measure definitions, <a href="https://developer.spotify.com/web-api/object-model/#audio-features-object">according to Spotify</a></h3>
+                  <h3 className="center-text"> Measure definitions, <a href="https://developer.spotify.com/web-api/object-model/#audio-features-object">according to Spotify</a></h3>
                   <ul>
 
                   <li>

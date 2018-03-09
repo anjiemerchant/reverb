@@ -30,15 +30,27 @@ module.exports = {
         'Content-Type': 'application/json'
       }
     }
+  },
+  appAccess: () => {
+    return {
+      url: 'https://accounts.spotify.com/api/token',
+      headers: {
+        'Authorization': `Basic <base64 encoded ${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_ID}>`
+      },
+      body: {
+        'grant_type': 'client_credentials'
+      }
+    }
+  },
+  refreshUserAccess: refreshToken => {
+    return {
+      url: 'https://accounts.spotify.com/api/token',
+      headers: {
+        'Authorization': 'Basic ' + (new Buffer(process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET).toString('base64'))
+      },
+      body: {
+        'grant_type': refreshToken
+      }
+    }
   }
 }
-
-      // getRecent: (accessToken) => ({
-  //   url: 'https://api.spotify.com/v1/me/player/recently-played',
-  //   headers: {
-  //     'Accept': 'application/json',
-  //     'Authorization': 'Bearer ' + accessToken,
-  //     'Content-Type': 'application/json'
-  //   }
-  //   // query: "limit=50"
-  // }),

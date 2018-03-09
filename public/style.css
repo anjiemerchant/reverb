@@ -4,13 +4,24 @@ body {
   margin: 0px;
 }
 
+a {
+  text-decoration: none;
+}
+
+
 h1 {
   font-family: "Chelsea Market"
 }
 
-a {
-  text-decoration: none;
+h2 {
+  margin-bottom: none;
 }
+
+
+h3 {
+  text-decoration: underline;
+}
+
 
 h4 {
   text-decoration: none;
@@ -28,9 +39,6 @@ ul {
  list-style-type: none;
 }
 
-h3 {
-  text-decoration: underline;
-}
 
 nav a {
   display: inline-block;
@@ -42,6 +50,7 @@ nav a {
   border-bottom: 2px solid rgb(0,0,0);padding-bottom:10px;
   background-color:   #af1b3f;
   color: #FFFDF4;
+  height: 5em;
 }
 
 .nav-img {
@@ -71,12 +80,26 @@ form div {
 }
 
 .album-thumbmail {
-  width: 20%;
+  width: 80%;
   height: auto;
 }
 
 .top-song {
   margin: 10px;
-  flex: 0 0 50%;
+  flex: 0 0 20%;
+  justify-content: center;
+  text-align: center;
+  background-color: #fffdf4;
+  padding: 10px;
+  border: solid 1px #84848496;
+  color: #473144;
 }
 
+.top-song a {
+  color: #473144;
+  margin-top: 1em;
+}
+
+.center-text {
+  text-align: center;
+}
