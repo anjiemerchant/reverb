@@ -20,7 +20,7 @@ module.exports = router
 
 if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
 
-  console.log('Spotify client ID / secret not found. Skipping Google OAuth.')
+  console.log('Spotify client ID / secret not found. Skipping Spotify OAuth.')
 
 } else {
 
@@ -51,8 +51,8 @@ if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
   router.get('/', passport.authenticate('spotify', {scope: ['user-top-read user-read-recently-played user-read-currently-playing']}))
 
   router.get('/callback', passport.authenticate('spotify', {
-    successRedirect: '/home',
-    failureRedirect: '/login'
+    successRedirect: '/songs',
+    failureRedirect: '/'
   }))
 
 
