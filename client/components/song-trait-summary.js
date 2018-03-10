@@ -42,7 +42,7 @@ class SongTraitSummary extends Component {
       return (
         <div className="main">
           <div className="container">
-          <h2>A quantitative summary of your music taste, derived from averaging the follow measures across top songs (n = 50)</h2>
+          <h2>A quantitative summary of your music taste, derived from averaging the follow measures across your top songs (n = 50)</h2>
 
             <label className="switch">
               <input onClick={this.handleClick} type="checkbox" />

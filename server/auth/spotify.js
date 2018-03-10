@@ -51,7 +51,7 @@ if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
   router.get('/', passport.authenticate('spotify', {scope: ['user-top-read user-read-recently-played user-read-currently-playing']}))
 
   router.get('/callback', passport.authenticate('spotify', {
-    successRedirect: '/home',
+    successRedirect: '/songs',
     failureRedirect: '/login'
   }))
 
