@@ -12,7 +12,15 @@ module.exports = {
       // time_range=medium_term (six months)
       // time_range=short_term (last month)
   }),
-  features: (accessToken, id) => ({
+  // features: (accessToken, id) => ({
+  //   url: `https://api.spotify.com/v1/audio-features/${id}`,
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Authorization': 'Bearer ' + accessToken,
+  //     'Content-Type': 'application/json'
+  //   }
+  // }),
+  featuresReverse: (id, accessToken)  => ({
     url: `https://api.spotify.com/v1/audio-features/${id}`,
     headers: {
       'Accept': 'application/json',
@@ -20,7 +28,18 @@ module.exports = {
       'Content-Type': 'application/json'
     }
   }),
-  featuresAggregate: (accessToken, ids) => {
+  // featuresAggregate: (accessToken, ids) => {
+  //   const stringDelimitedIds = ids.join(',')
+  //   return {
+  //     url: `https://api.spotify.com/v1/audio-features/?ids=${stringDelimitedIds}`,
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Authorization': 'Bearer ' + accessToken,
+  //       'Content-Type': 'application/json'
+  //     }
+  //   }
+  // },
+  featuresAggregateReverse: (ids, accessToken) => {
     const stringDelimitedIds = ids.join(',')
     return {
       url: `https://api.spotify.com/v1/audio-features/?ids=${stringDelimitedIds}`,
@@ -31,25 +50,28 @@ module.exports = {
       }
     }
   },
-  appAccess: () => {
-    return {
-      url: 'https://accounts.spotify.com/api/token',
-      headers: {
-        'Authorization': `Basic <base64 encoded ${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_ID}>`
-      },
-      body: {
-        'grant_type': 'client_credentials'
-      }
-    }
-  },
+  // appAccess: () => {
+  //   return {
+  //     url: 'https://accounts.spotify.com/api/token',
+  //     headers: {
+  //       'Authorization': `Basic <base64 encoded ${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_ID}>`
+  //     },
+  //     body: {
+  //       'grant_type': 'client_credentials'
+  //     }
+  //   }
+  // },
   refreshUserAccess: refreshToken => {
     return {
+      method: 'post',
       url: 'https://accounts.spotify.com/api/token',
       headers: {
-        'Authorization': 'Basic ' + (new Buffer(process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET).toString('base64'))
+        'Authorization': 'Basic ' + (new Buffer(process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET).toString('base64')),
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: {
-        'grant_type': refreshToken
+      params: {
+        'grant_type': 'refresh_token',
+        'refresh_token': refreshToken
       }
     }
   }

@@ -9,14 +9,14 @@ import { fetchSongs } from '../store'
 class UserHome extends Component {
 
   componentDidMount(){
-    this.props.fetchSongs(this.props.accessToken);
+    this.props.fetchSongs(this.props.accessToken, this.props.refreshToken);
   }
 
   render() {
 
   return (
     <div className="main">
-      <h2>Hey, {this.props.name}</h2>
+      <h2>Hey, {this.props.name}. Go explore.</h2>
     </div>
   )
 }
@@ -28,7 +28,8 @@ class UserHome extends Component {
 const mapState = (state) => {
   return {
     name: state.user.name,
-    accessToken: state.user.accessToken
+    accessToken: state.user.accessToken,
+    refreshToken: state.user.refreshToken
   }
 }
 

@@ -10,7 +10,7 @@ const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
+    <div className="login">
       {/* <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email"><small>Email</small></label>
@@ -25,6 +25,7 @@ const AuthForm = (props) => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form> */}
+      <img src="/spotify.png" alt="spotify logo" />
       <a href="/auth/spotify">{displayName} with Spotify</a>
     </div>
   )

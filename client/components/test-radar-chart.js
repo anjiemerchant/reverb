@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import {BarChart, Bar, XAxis, YAxis, CartesianGrid} from 'recharts';
+import {Radar, RadarChart, PolarGrid,
+  PolarAngleAxis, PolarRadiusAxis} from 'recharts';
 
-class TestBarChart extends Component {
+class TestRadarChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,20 +28,15 @@ class TestBarChart extends Component {
 
       <div>
        <div className="chart center-container">
-          <BarChart
-          width={1000}
-          height={500}
-          data={this.state.data}
-          margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-          <XAxis
-          dataKey="trait"
-          />
-          <YAxis />
-          <Bar dataKey="value"
+          <RadarChart width={600} height={500} data={this.state.data}>
+          <PolarGrid />
+          <PolarAngleAxis dataKey="trait" />
+          <PolarRadiusAxis/>
+          <Radar dataKey="value" stroke="#8884d8"
           // fill="#34113f"
           fill="#faa916"
-          />
-          </BarChart>
+          fillOpacity={0.6} />
+          </RadarChart>
         </div>
         <div>
           <h3> Measure definitions, <a href="https://developer.spotify.com/web-api/object-model/#audio-features-object">according to Spotify</a></h3>
@@ -96,4 +92,4 @@ const mapState  = (state, ownProps) => {
   }
 }
 
-export default connect(mapState, null)(TestBarChart);
+export default connect(mapState, null)(TestRadarChart);

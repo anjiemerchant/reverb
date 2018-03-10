@@ -20,19 +20,19 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/top/summary" component={SongTraitSummary} />
-        <Route exact path="/songs" component={AllSongs} />
-        <Route path="/songs/:songId" component={SongTraits} />
+        {/* <Route path="/signup" component={Signup} /> */}
         {
           isLoggedIn &&
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route path="/home" component={UserHome} />
+              <Route exact path="/songs" component={AllSongs} />
+              <Route path="/summary" component={SongTraitSummary} />
+              <Route path="/songs/:songId" component={SongTraits} />
             </Switch>
         }
         {/* Displays our Login component as a fallback */}
-        {/* <Route component={Login} /> */}
+        <Route component={Login} />
       </Switch>
     )
   }

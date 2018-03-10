@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "build-client": "webpack",
-    "build-client-watch": "webpack -w",
+    "build-client-watch": "webpack -p",
     "deploy": "script/deploy",
     "lint": "eslint ./ --ignore-path .gitignore",
     "prepush": "npm run lint && npm test",
@@ -24,16 +24,9 @@
   "dependencies": {
     "axios": "^0.15.3",
     "body-parser": "^1.16.1",
+    "chart.js": "^2.7.2",
     "compression": "^1.7.1",
     "connect-session-sequelize": "^4.1.0",
-    "d3-array": "1.2.1",
-    "d3-axis": "^1.0.8",
-    "d3-brush": "1.0.4",
-    "d3-scale": "2.0.0",
-    "d3-selection": "1.3.0",
-    "d3-shape": "1.2.0",
-    "d3-svg-legend": "2.25.5",
-    "d3-transition": "1.1.1",
     "express": "^4.14.1",
     "express-session": "^1.15.1",
     "history": "^4.6.3",
@@ -45,14 +38,19 @@
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.5.8",
     "react": "^16.0.0",
+    "react-chartjs-2": "^2.7.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.2",
     "react-router-dom": "^4.1.1",
+    "recharts": "^1.0.0-beta.10",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
+    "request-promise": "^4.2.2",
     "sequelize": "^4.3.1",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.9"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.40",
@@ -76,9 +74,6 @@
     "react-test-renderer": "^16.0.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-mock-store": "^1.2.3",
-    "request": "^2.83.0",
-    "supertest": "^3.0.0",
-    "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.9"
+    "supertest": "^3.0.0"
   }
 }
