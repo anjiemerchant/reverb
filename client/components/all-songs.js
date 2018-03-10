@@ -22,7 +22,7 @@ class AllSongs extends Component {
             <h2>{this.props.name}'s Top 20</h2>
             : <h2> Your Top 20 </h2>
             }
-            <h4>Below is a list of the twenty songs you've played most on Spotify over the past several years. Click on any to see how it rates in terms of acousticness, danceability, energy, instrumentalness, speechiness, and valence. Defintions included after the click.</h4>
+            <h4>Below is a list of the twenty songs you've played most on Spotify over the past several years. Click on any to see how it rates in terms of acousticness, danceability, energy, instrumentalness, liveness, speechiness, and valence. Defintions included after the click.</h4>
             <div className="album-display">
             {this.props.songs && this.props.songs.map(song => {
               return (
