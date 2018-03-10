@@ -7,13 +7,13 @@ import { fetchSongs } from '../store'
 class AllSongs extends Component {
 
   componentDidMount() {
-    // this.props.fetchSongs(this.props.accessToken, this.props.refreshToken);
+    this.props.fetchSongs(this.props.accessToken, this.props.refreshToken);
   }
 
 
   render() {
 
-    if (!this.props.songs) return <div>Your top songs are loading...</div>;
+    if (!this.props.songs) return <div>Hey, {this.props.name}, your top songs are loading...</div>;
 
     else {
       return (

@@ -1,5 +1,5 @@
 {
-  "name": "stackathon",
+  "name": "reverb",
   "version": "1.0.0",
   "description": "Some boilerplate code to get you started - get shakin'!",
   "engines": {
@@ -11,7 +11,6 @@
     "build-client-watch": "webpack -p",
     "deploy": "script/deploy",
     "lint": "eslint ./ --ignore-path .gitignore",
-    "prepush": "npm run lint && npm test",
     "postinstall": "touch secrets.js",
     "seed": "node script/seed.js",
     "start": "node server",
