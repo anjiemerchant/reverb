@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSongTraits } from '../store'
-import BarChart from './bar-chart'
 import TestBarChart from './test-bar-chart'
 import TestRadarChart from './test-radar-chart'
 
@@ -19,7 +18,7 @@ class SongTraits extends Component {
 
   componentDidMount() {
     const songId = this.props.match.params.songId;
-    this.props.fetchSongTraits(this.props.accessToken, songId);
+    this.props.fetchSongTraits(this.props.accessToken, this.props.refreshToken, songId);
   }
 
   componentWillReceiveProps(newProps, oldProps) {
@@ -82,6 +81,7 @@ const mapState = (state) => {
 
   return {
     accessToken: state.user.accessToken,
+    refreshToken: state.user.refreshToken,
     songTraits: songTraitsEdited,
     song
   }

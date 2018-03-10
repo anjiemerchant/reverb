@@ -21,9 +21,9 @@ export default (traits = {}, action) => {
 }
 
 // thunk creators
-export const fetchSongTraits = (accessToken, id) => {
+export const fetchSongTraits = (accessToken, refreshToken, id) => {
   return dispatch => {
-    return axios.post(`/api/songs/${id}`, {accessToken})
+    return axios.post(`/api/songs/${id}`, {accessToken, refreshToken})
       .then(res => res.data)
       .then(traits => dispatch(getSingleSongTraits(traits)))
       .catch(err => console.error('error fetching traits', err))

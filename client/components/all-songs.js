@@ -7,7 +7,7 @@ import { fetchSongs } from '../store'
 class AllSongs extends Component {
 
   componentDidMount() {
-    this.props.fetchSongs(this.props.accessToken);
+    // this.props.fetchSongs(this.props.accessToken, this.props.refreshToken);
   }
 
 
@@ -43,6 +43,7 @@ class AllSongs extends Component {
 const mapState = (state) => {
   return {
     accessToken: state.user.accessToken,
+    refreshToken: state.user.refreshToken,
     songs: state.songs.slice(0, 20),
     name: state.user.name,
   }

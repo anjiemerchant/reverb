@@ -21,9 +21,9 @@ export default (songs = [], action) => {
 }
 
 // thunk creators
-export const fetchSongs = accessToken => {
+export const fetchSongs = (accessToken, refreshToken) => {
   return dispatch => {
-    return axios.post('/api/top', {accessToken})
+    return axios.post('/api/top', {accessToken, refreshToken})
       .then(res => res.data)
       .then(songs => dispatch(getAllSongs(songs.items)))
       .catch(err => console.error('error fetching songs', err))

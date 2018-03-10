@@ -21,9 +21,9 @@ export default (allTraits = [], action) => {
 }
 
 // thunk creators
-export const fetchAllSongTraits = (accessToken, ids) => {
+export const fetchAllSongTraits = (accessToken, refreshToken, ids) => {
   return dispatch => {
-    return axios.post(`/api/summary`, {accessToken, ids})
+    return axios.post(`/api/summary`, {accessToken, refreshToken, ids})
       .then(res => res.data)
       .then(traits => dispatch(getAllSongTraits(traits.audio_features)))
       .catch(err => console.error('error fetching traits', err))

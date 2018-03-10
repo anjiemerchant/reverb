@@ -19,7 +19,7 @@ class SongTraitSummary extends Component {
   componentDidMount() {
     const songs = this.props.songs || []
     const songIds = songs.map(song => song.id)
-    this.props.fetchAllSongTraits(this.props.accessToken, songIds);
+    this.props.fetchAllSongTraits(this.props.accessToken, this.props.refreshToken, songIds);
   }
 
   componentWillReceiveProps(newProps, oldProps) {
@@ -94,6 +94,7 @@ const mapState = state => {
 
   return {
     accessToken: state.user.accessToken,
+    refreshToken: state.user.refreshToken,
     allSongTraits: songTraitsEdited,
     songs: state.songs
   }

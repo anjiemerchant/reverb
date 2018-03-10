@@ -1,80 +1,79 @@
 const router = require('express').Router()
-const request = require('request');
+// const request = require('request');
 const spotify = require('../db/spotify.js')
-module.exports = router
+const User = require('../db/models/user')
+// var rp = require('request-promise');
+var axios = require('axios')
 
+module.exports = router
 
 // https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
 router.post('/top', (req, res, next) => {
   let options = spotify.top(req.body.accessToken)
-
-  request.get(options, (error, response, body) => {
-    console.log('response', response);
-    console.log('body', body);
-    console.log('error', error);
-
-    // if (body.error.status === 401) {
-    // //   // need to add this to the req.body:
-    //   req.requestOptArr = [];
-    //   req.requestCallback = spotify.top
-    //   next()
-    // } else {
-    //   // send response instead of pipe
-    // }
-
-  }).pipe(res)
+  axios.request(options)
+    .then(response => {
+      res.send(response.data)
+      })
+    .catch(err => {
+      if (err.response.status === 401) {
+        req.requestCallback = spotify.top
+        next()
+      }
+    });
 });
 
 router.post('/summary', (req, res, next) => {
-  let options = spotify.featuresAggregate(req.body.accessToken, req.body.ids)
-  request.get(options, (error, response, body) => {
-    console.log('error', error);
-    console.log('response', response);
-    console.log('body', body);
-
-    // if (body.error && body.error.status === 401) {
-    //     req.requestOptArr = req.body.ids;
-    //     req.requestCallback = spotify.featuresAggregate // will need to be invoked with accessToken THEN options
-    //     next()
-    //   } else {
-    //     // do the returning instead of pipe
-    //     //e.g. res.send(body)
-    //   }
-  })
-  .pipe(res)
+  let options = spotify.featuresAggregateReverse(req.body.ids, req.body.accessToken)
+  axios.request(options)
+    .then(response => {
+      res.send(response.data)
+      })
+    .catch(err => {
+      if (err.response.status === 401) {
+        req.requestCallback = spotify.featuresAggregateReverse.bind(null, req.body.ids)
+        next()
+      }
+    });
 });
 
 // https://developer.spotify.com/web-api/get-audio-features/
 router.post('/songs/:id', (req, res, next) => {
-  let options = spotify.features(req.body.accessToken, req.params.id)
+  let options = spotify.featuresReverse(req.params.id, req.body.accessToken)
 
-  request.get(options, (error, response, body) => {
-    console.log('error', error);
-    console.log('response', response);
-    console.log('body', body);
-    // if (body.error.status === 401) {
-    //   // ALTERNATE TO PREVIOUS EXAMPLE
-    //   req.requestCallback = spotify.featuresReverse.bind(null, req.params.id) // so now req.requestCallback just has to be invoked with accesstoken
-    //   next()
-    // } else {
-    //   // do the returning instead of pipe (i.e. res.send())
-    // }
-  }).pipe(res)
+  axios.request(options)
+    .then(response => {
+      res.send(response.data)
+      })
+    .catch(err => {
+      if (err.response.status === 401) {
+        req.requestCallback = spotify.featuresReverse.bind(null, req.params.id)
+        next()
+      }
+    });
 });
 
-
-
-// https://developer.spotify.com/web-api/web-api-personalization-endpoints/get-recently-played/
-// router.post('/recent', (req, res, next) =>  {
-//   let options = spotify.getRecent(req.body.accessToken)
-
-//   request.get(options, (error, response, body) => {
-//     console.log('error', error); // if error other than 401 send to error handling middleware?
-//     console.log('response', response);
-//     console.log('body', body);
-
-//   }).pipe(res)
-// });
+router.post('*', (req, res, next) => {
+  console.log('entering new route')
+  let options = spotify.refreshUserAccess(req.body.refreshToken);
+  axios.request(options)
+    .then(response => {
+      console.log('success')
+      User.findById(req.user.id)
+        .then(foundUser => {
+          return foundUser.update({accessToken: response.data.access_token})
+        })
+        .then(() => {
+          // then be able to re-request original query (top 5 / features)
+          let opt = req.requestCallback(response.data.access_token)
+          axios.request(opt)
+            .then(secondResponse => {
+              res.send(secondResponse.data)
+            })
+            .catch(err => console.error("this is an error", err))
+           })
+    })
+    .catch(err => console.error("this is an error", err))
+  })
 
 
 module.exports = router;
