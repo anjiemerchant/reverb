@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchSongTraits } from '../store'
 import BarChart from './bar-chart'
 import TestBarChart from './test-bar-chart'
+import TestRadarChart from './test-radar-chart'
 
 class SongTraits extends Component {
 
@@ -10,8 +11,10 @@ class SongTraits extends Component {
     super(props);
 
     this.state = {
-      songTraits: this.props.songTraits
+      songTraits: this.props.songTraits,
+      selectedChart: true
     }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -27,6 +30,12 @@ class SongTraits extends Component {
     }
   }
 
+  handleClick() {
+    this.setState({
+      selectedChart: !this.state.selectedChart
+    })
+  }
+
   render() {
     const song = this.props.song[0] || []
     const songName = song.name || ''
@@ -35,16 +44,23 @@ class SongTraits extends Component {
     if (!this.state.songTraits[0].value) return <div />;
     else {
       return (
-          <div className="main">
+        <div className="main">
+          <div className="container">
             <h2>{songName} by {songArtists}</h2>
-            {/* <div>{this.state.songTraits.length && this.state.songTraits.map(trait => { return (
-              <div key={trait.index}>
-                {trait.trait}: {trait.value}
-              </div>
-             ) })} </div> */}
-            {/* <BarChart data={this.state.songTraits} size={[500, 500]} /> */}
-            <TestBarChart data={this.state.songTraits} />
+
+            <label className="switch">
+              <input onClick={this.handleClick}type="checkbox" />
+              <span className="slider round"></span>
+            </label>
           </div>
+
+          <div>
+            {this.state.selectedChart ?
+            <TestRadarChart data={this.state.songTraits} />
+            :  <TestBarChart data={this.state.songTraits} />
+            }
+          </div>
+        </div>
       )
     }
   }

@@ -5,25 +5,24 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {Login} from './auth-form'
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, name }) => (
   <div className="container nav">
     <div className="container">
       <img className="nav-img" src="/cassette.svg" alt="cassette" />
       <h1>Reverb</h1>
     </div>
     <nav>
-      {isLoggedIn ? (
+      {isLoggedIn &&
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
+          {/* <Link to="/home">Home</Link> */}
           <Link to="/songs">Top 20</Link>
           <Link to={`/summary`}>Quantify My Taste</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
         </div>
-      )
-    : <Login />}
+      }
     </nav>
   </div>
 )
@@ -33,7 +32,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    name: state.user.name
   }
 }
 

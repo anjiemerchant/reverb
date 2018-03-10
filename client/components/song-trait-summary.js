@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAllSongTraits } from '../store'
-import BarChart from './bar-chart'
 import TestBarChart from './test-bar-chart'
-
+import TestRadarChart from './test-radar-chart'
 
 class SongTraitSummary extends Component {
 
@@ -11,8 +10,10 @@ class SongTraitSummary extends Component {
     super(props);
 
     this.state = {
-      allSongTraits: this.props.allSongTraits
+      allSongTraits: this.props.allSongTraits,
+      selectedChart: true
     }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -29,14 +30,32 @@ class SongTraitSummary extends Component {
     }
   }
 
+  handleClick() {
+    this.setState({
+      selectedChart: !this.state.selectedChart
+    })
+  }
+
   render() {
     if (!this.state.allSongTraits) return <div />;
     else {
       return (
         <div className="main">
+          <div className="container">
           <h2>A quantitative summary of your music taste, derived from averaging the follow measures across top songs (n = 50)</h2>
-          {/* <BarChart data={this.state.allSongTraits} size={[500, 500]} /> */}
-          <TestBarChart data={this.state.allSongTraits} />
+
+            <label className="switch">
+              <input onClick={this.handleClick} type="checkbox" />
+              <span className="slider round"></span>
+            </label>
+          </div>
+
+          <div>
+            {this.state.selectedChart ?
+           <TestRadarChart data={this.state.allSongTraits} />
+            : <TestBarChart data={this.state.allSongTraits} />
+            }
+          </div>
         </div>
       )
     }
