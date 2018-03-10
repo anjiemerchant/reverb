@@ -21,7 +21,7 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         {/* <Route path="/login" component={Login} /> */}
         <Route path="/signup" component={Signup} />
-        <Route path="/top/summary" component={SongTraitSummary} />
+        <Route path="/summary" component={SongTraitSummary} />
         <Route exact path="/songs" component={AllSongs} />
         <Route path="/songs/:songId" component={SongTraits} />
         {

@@ -25,7 +25,7 @@ router.post('/top', (req, res, next) => {
   }).pipe(res)
 });
 
-router.post('/top/summary', (req, res, next) => {
+router.post('/summary', (req, res, next) => {
   let options = spotify.featuresAggregate(req.body.accessToken, req.body.ids)
   request.get(options, (error, response, body) => {
     console.log('error', error);
