@@ -21,7 +21,7 @@ class TestRadarChart extends Component {
 
   render() {
 
-    if (!this.state.data[0].value) return <div>Your taste is being computed...</div>
+    if (!this.state.data[0].value) return <div>Your taste is being calculated...</div>
 
     else {
       return (
