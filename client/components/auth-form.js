@@ -11,22 +11,11 @@ const AuthForm = (props) => {
 
   return (
     <div className="login">
-      {/* <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email"><small>Email</small></label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password"><small>Password</small></label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form> */}
-      <img src="/spotify.png" alt="spotify logo" />
-      <a href="/auth/spotify">{displayName} with Spotify</a>
+      <h4>Leveraging Spotify-defined measures of audio features, Reverb uses your top songs to quantify your music taste.</h4>
+      <a href="/auth/spotify" className="login-link">
+        <img className="spotify-logo" src="/spotify.png" alt="spotify logo" />
+        <div>Click to {displayName} with Spotify</div>
+      </a>
     </div>
   )
 }
@@ -41,7 +30,7 @@ const AuthForm = (props) => {
 const mapLogin = (state) => {
   return {
     name: 'login',
-    displayName: 'Login',
+    displayName: 'login',
     error: state.user.error
   }
 }
@@ -49,7 +38,7 @@ const mapLogin = (state) => {
 const mapSignup = (state) => {
   return {
     name: 'signup',
-    displayName: 'Sign Up',
+    displayName: 'sign up',
     error: state.user.error
   }
 }
