@@ -1,30 +1,18 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchSongs } from '../store'
+import React from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 
-class AllSongs extends Component {
-
-  componentDidMount() {
-    this.props.fetchSongs(this.props.accessToken, this.props.refreshToken);
-  }
-
-
-  render() {
-
-    if (!this.props.songs) return <div>Your top songs are loading...</div>;
-
-    else {
-      return (
+ const AllSongs = ({displaySongs, name, spotifyId}) => {
+  return (
         <div className="main">
-            {this.props.name ?
-            <h2>{this.props.name}'s Top 20</h2>
-            : <h2>{this.props.spotifyId}'s Top 20 </h2>
+            {name ?
+            <h2>{name}'s Top 20</h2>
+            : <h2>{spotifyId}'s Top 20 </h2>
             }
             <h4>Click on a song to see how it rates in terms of acousticness, danceability, energy, instrumentalness, liveness, speechiness, and valence. Defintions included after the click.</h4>
             <div className="album-display">
-            {this.props.songs && this.props.songs.map(song => {
+            {displaySongs && displaySongs.map(song => {
               return (
                 <div key={song.id} className="top-song">
                 <Link to={`/songs/${song.id}`}>
@@ -37,22 +25,13 @@ class AllSongs extends Component {
             </div>
           </div>
         )
-    }
   }
-}
-
 
 // Container
-const mapState = (state) => {
-  return {
-    accessToken: state.user.accessToken,
-    refreshToken: state.user.refreshToken,
-    songs: state.songs.slice(0, 20),
+const mapState = state => ({
+    displaySongs: state.songs.slice(0, 20),
     name: state.user.name,
     spotifyId: state.user.spotifyId
-  }
-}
+  })
 
-const mapDispatch = { fetchSongs }
-
-export default connect(mapState, mapDispatch)(AllSongs);
+export default connect(mapState, null)(AllSongs);
