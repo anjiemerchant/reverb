@@ -12,6 +12,7 @@ a {
 h1 {
   font-family: "Chelsea Market";
   color: white;
+  font-size: 6vh;
 }
 
 h2 {
@@ -29,6 +30,11 @@ h3 {
 h4 {
   text-decoration: none;
   color: #011936;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 label {
@@ -56,11 +62,10 @@ nav a {
   background-color:   #af1b3f;
   color: #FFFDF4;
   height: 5em;
-  /* background-color: #1a1b41 */
 }
 
 .nav-img {
-  height: 50px;
+  height: 5vh;
   width: auto;
   padding: 10px;
 }
@@ -120,6 +125,7 @@ form div {
 .spotify-logo {
   height: 4em;
 }
+
 .login {
   font-size: 2em;
   display: flex;
@@ -209,4 +215,18 @@ input:checked + .slider:before {
 .center-container {
   display: flex;
   justify-content: center;
+  width: 100vw;
+  height: 80vh;
+}
+
+
+@media (min-width: 600px) {
+  #staff .staff-profile {
+    flex: 0 0 50%;
+  }
+}
+@media (min-width: 960px) {
+  #staff .staff-profile {
+    flex: 0 0 33%;
+  }
 }

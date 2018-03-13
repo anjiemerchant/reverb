@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import {Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis} from 'recharts';
+import {Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer} from 'recharts';
 import {MeasureDefinitions} from './measure-definitions'
 
-class TestRadarChart extends Component {
+class TraitRadarChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,6 +27,7 @@ class TestRadarChart extends Component {
       return (
       <div>
        <div className="chart center-container">
+          <ResponsiveContainer>
           <RadarChart
           width={600}
           height={500}
@@ -41,6 +42,7 @@ class TestRadarChart extends Component {
           fill="#faa916"
           fillOpacity={0.6} />
           </RadarChart>
+          </ResponsiveContainer>
         </div>
         <MeasureDefinitions />
       </div>
@@ -55,4 +57,4 @@ const mapState  = (state, ownProps) => {
   }
 }
 
-export default connect(mapState, null)(TestRadarChart);
+export default connect(mapState, null)(TraitRadarChart);

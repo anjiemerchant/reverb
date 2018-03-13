@@ -6,7 +6,7 @@ import {auth} from '../store'
  * COMPONENT
  */
 const AuthForm = props => {
-  const {displayName, handleSubmit, error} = props
+  const {displayName} = props
 
   return (
     <div className="login">

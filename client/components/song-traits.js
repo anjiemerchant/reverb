@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {setCurrentSong} from '../store'
-import TestBarChart from './test-bar-chart'
-import TestRadarChart from './test-radar-chart'
+import BarChart from './bar-chart';
+import RadarChart from './radar-chart';
+import {setCurrentSong} from '../store';
 
 class SongTraits extends Component {
 
@@ -20,11 +20,12 @@ class SongTraits extends Component {
   componentDidMount() {
     const currentSongId = this.props.match.params.songId;
     const currentSong = this.props.songs.filter(song => song.id === currentSongId)[0];
-    setCurrentSong(currentSong);
+    this.props.setCurrentSong(currentSong);
   }
 
-  componentWillReceiveProps(newProps, oldProps) {
-    if (newProps.currentSong !== oldProps.currentSong) {
+  componentWillReceiveProps(newProps) {
+    console.log('newprops', newProps)
+    if (newProps.currentSong !== this.props.currentSong) {
       this.setState({
         currentSong: newProps.currentSong,
         currentSongTraits: newProps.currentSongTraits
@@ -41,8 +42,7 @@ class SongTraits extends Component {
   render() {
     const songName = this.state.currentSong.name || ''
     const songArtists = this.state.currentSong.artists ? this.state.currentSong.artists[0].name : []
-    console.log('this.state', this.state)
-    if (!this.state.currentSongTraits[0].value) return <div />;
+    if (!this.state.currentSongTraits.length) return <div />;
     else {
       return (
         <div className="main">
@@ -57,8 +57,8 @@ class SongTraits extends Component {
 
           <div>
             {this.state.selectedChart ?
-            <TestRadarChart data={this.state.currentSongTraits} />
-            : <TestBarChart data={this.state.currentSongTraits} />
+            <RadarChart data={this.state.currentSongTraits} />
+            : <BarChart data={this.state.currentSongTraits} />
             }
           </div>
         </div>
@@ -69,17 +69,21 @@ class SongTraits extends Component {
 
 // Container
 const mapState = state => {
-  const currentSongTraits = state.allSongTraits.filter(songEl => songEl.id === state.currentSong.id)
+  const currentSongTraits = state.allSongTraits.filter(songEl => songEl.id === state.currentSong.id)[0]
 
-  const songTraitsEdited = [
-    {trait: "acousticness", value: currentSongTraits.acousticness},
-    {trait: "danceability", value: currentSongTraits.danceability},
-    {trait: "energy", value: currentSongTraits.energy},
-    {trait: "instrumentalness", value: currentSongTraits.instrumentalness},
-    {trait: "liveness", value: currentSongTraits.liveness},
-    {trait: "speechiness", value: currentSongTraits.speechiness},
-    {trait: "valence", value: currentSongTraits.valence}
-  ]
+  let songTraitsEdited = []
+
+  if (currentSongTraits) {
+    songTraitsEdited = [
+      {trait: "acousticness", value: currentSongTraits.acousticness},
+      {trait: "danceability", value: currentSongTraits.danceability},
+      {trait: "energy", value: currentSongTraits.energy},
+      {trait: "instrumentalness", value: currentSongTraits.instrumentalness},
+      {trait: "liveness", value: currentSongTraits.liveness},
+      {trait: "speechiness", value: currentSongTraits.speechiness},
+      {trait: "valence", value: currentSongTraits.valence}
+    ]
+}
 
   return {
     currentSongTraits: songTraitsEdited,

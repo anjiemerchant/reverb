@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
-import {Login, Signup, UserHome, AllSongs, SongTraits, SongTraitSummary} from './components'
+import {Login, AllSongs, SongTraits, SongTraitSummary} from './components'
 import {me, fetchSongs, fetchAllSongTraits} from './store'
 
 /**
@@ -14,7 +14,6 @@ class Routes extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-      console.log('newprops', newProps)
     if (newProps.user !== this.props.user) {
       if (!newProps.songs.length) {
         newProps.fetchSongs(newProps.user.accessToken, newProps.user.refreshToken)

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import TestBarChart from './test-bar-chart'
-import TestRadarChart from './test-radar-chart'
+import BarChart from './bar-chart'
+import RadarChart from './radar-chart'
 
 class SongTraitSummary extends Component {
 
@@ -33,8 +33,8 @@ class SongTraitSummary extends Component {
 
           <div>
             {this.state.selectedChart ?
-           <TestRadarChart data={this.props.allSongTraits} />
-            : <TestBarChart data={this.props.allSongTraits} />
+           <RadarChart data={this.props.allSongTraits} />
+            : <BarChart data={this.props.allSongTraits} />
             }
           </div>
         </div>
@@ -44,6 +44,17 @@ class SongTraitSummary extends Component {
 
 // Container
 const mapState = state => {
+
+  // const obj = {}
+  // state.allSongTraits.forEach(el => {
+  //     let key = el.trait;
+  //     if (key === "acousticness" || key === "danceability" || key === "energy" || key === "instrumentalness" || key === "liveness" || key === "speechiness" || key === "valence") {
+  //       obj[key] = obj[key] || { count: 0, total: 0, avg: 0 };
+  //       obj[key].count++;
+  //       obj[key].total += el.val;
+  //       obj[key].avg = obj[key].total / obj[key].count;
+  //     }
+  //   })
 
   const acousticness = state.allSongTraits ? state.allSongTraits.map(trait => trait.acousticness)
                                                                 .reduce((acc, val) => acc + val, 0) : null

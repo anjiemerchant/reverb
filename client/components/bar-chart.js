@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import {BarChart, Bar, XAxis, YAxis} from 'recharts';
+import {BarChart, Bar, XAxis, YAxis, ResponsiveContainer} from 'recharts';
 import {MeasureDefinitions} from './measure-definitions'
 
-class TestBarChart extends Component {
+class TraitBarChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,6 +27,7 @@ class TestBarChart extends Component {
       return (
       <div>
         <div className="chart center-container">
+          <ResponsiveContainer>
             <BarChart
             width={1000}
             height={500}
@@ -42,6 +43,7 @@ class TestBarChart extends Component {
             fill="#faa916"
             />
             </BarChart>
+            </ResponsiveContainer>
           </div>
         <MeasureDefinitions />
       </div>
@@ -54,4 +56,4 @@ const mapState  = (state, ownProps) => ({
     data: ownProps.data
   })
 
-export default connect(mapState, null)(TestBarChart);
+export default connect(mapState, null)(TraitBarChart);
