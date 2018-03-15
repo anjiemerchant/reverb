@@ -88,6 +88,7 @@ form div {
 .album-display {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .album-thumbmail {
@@ -138,14 +139,14 @@ form div {
 }
 
 .login-link {
-  width: 25%;
+  width: 16em;
   height: auto;
   border: solid 2px #84848496;
   display: flex;
   align-items: center;
   background-color: #c4dacf;
   border-radius: 25px;
-  font-size: 0.6em;
+  font-size: 0.5em;
 }
 
 .login a {
@@ -269,7 +270,7 @@ input:checked + .slider:before {
 
   .login a {
     color: #011936;
-    size: 0.2em;
+    size: 0.25em;
   }
 
   .spotify-logo {
