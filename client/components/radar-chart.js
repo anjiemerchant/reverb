@@ -24,13 +24,15 @@ class TraitRadarChart extends Component {
     if (!this.state.data[0].value) return <div>Your taste is being calculated...</div>
 
     else {
+      console.log(this.state.data, "this.state.data")
       return (
       <div>
        <div className="chart center-container">
-          <ResponsiveContainer>
+        <ResponsiveContainer>
           <RadarChart
           width={600}
           height={500}
+          margin={{top: 5, right: 20, left: 20, bottom: 5}}
           data={this.state.data}>
           <PolarGrid />
           <PolarAngleAxis

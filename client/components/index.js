@@ -1,5 +1,4 @@
 export {default as Navbar} from './navbar'
-export {default as UserHome} from './user-home'
 export {Login} from './auth-form'
 export {default as AllSongs} from './all-songs'
 export {default as SongTraits} from './song-traits'

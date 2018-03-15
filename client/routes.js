@@ -37,6 +37,7 @@ class Routes extends Component {
               <Route exact path="/songs" component={AllSongs} />
               <Route path="/summary" component={SongTraitSummary} />
               <Route path="/songs/:songId" component={SongTraits} />
+              <Route path="/*" component={AllSongs} />
             </Switch>
         }
         <Route component={Login} />

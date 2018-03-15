@@ -24,7 +24,6 @@ class SongTraits extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log('newprops', newProps)
     if (newProps.currentSong !== this.props.currentSong) {
       this.setState({
         currentSong: newProps.currentSong,
@@ -47,7 +46,7 @@ class SongTraits extends Component {
       return (
         <div className="main">
           <div className="container">
-            <h2>{songName} by {songArtists}</h2>
+            <h2 className="graph-title">{songName} by {songArtists}</h2>
 
             <label className="switch">
               <input onClick={this.handleClick}type="checkbox" />
@@ -75,12 +74,12 @@ const mapState = state => {
 
   if (currentSongTraits) {
     songTraitsEdited = [
-      {trait: "acousticness", value: currentSongTraits.acousticness},
+      {trait: "acoustics", value: currentSongTraits.acousticness},
       {trait: "danceability", value: currentSongTraits.danceability},
       {trait: "energy", value: currentSongTraits.energy},
-      {trait: "instrumentalness", value: currentSongTraits.instrumentalness},
-      {trait: "liveness", value: currentSongTraits.liveness},
+      {trait: "instrumentals", value: currentSongTraits.instrumentalness},
       {trait: "speechiness", value: currentSongTraits.speechiness},
+      {trait: "liveness", value: currentSongTraits.liveness},
       {trait: "valence", value: currentSongTraits.valence}
     ]
 }

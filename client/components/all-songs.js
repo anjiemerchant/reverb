@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom';
             <h2>{name}'s Top 20</h2>
             : <h2>{spotifyId}'s Top 20 </h2>
             }
-            <h4>Click on a song to see how it rates in terms of acousticness, danceability, energy, instrumentalness, liveness, speechiness, and valence. Defintions included after the click.</h4>
+            <h4>Click on a song to see how it rates in terms of acoustics, danceability, energy, instrumentals, liveness, speechiness, and valence. Defintions included after the click.</h4>
             <div className="album-display">
             {displaySongs && displaySongs.map(song => {
               return (

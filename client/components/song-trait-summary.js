@@ -24,7 +24,7 @@ class SongTraitSummary extends Component {
       return (
         <div className="main">
           <div className="container">
-          <h2>A quantitative summary of your music taste, derived from averaging the following measures across your top songs (n = 50)</h2>
+          <h2 className="graph-title">A quantitative summary of your music taste, derived from averaging the following measures across your top songs (n = 50)</h2>
             <label className="switch">
               <input onClick={this.handleClick} type="checkbox" />
               <span className="slider round" />
@@ -45,17 +45,6 @@ class SongTraitSummary extends Component {
 // Container
 const mapState = state => {
 
-  // const obj = {}
-  // state.allSongTraits.forEach(el => {
-  //     let key = el.trait;
-  //     if (key === "acousticness" || key === "danceability" || key === "energy" || key === "instrumentalness" || key === "liveness" || key === "speechiness" || key === "valence") {
-  //       obj[key] = obj[key] || { count: 0, total: 0, avg: 0 };
-  //       obj[key].count++;
-  //       obj[key].total += el.val;
-  //       obj[key].avg = obj[key].total / obj[key].count;
-  //     }
-  //   })
-
   const acousticness = state.allSongTraits ? state.allSongTraits.map(trait => trait.acousticness)
                                                                 .reduce((acc, val) => acc + val, 0) : null
   const danceability = state.allSongTraits ? state.allSongTraits.map(trait => trait.danceability)
@@ -74,14 +63,15 @@ const mapState = state => {
   const length = state.allSongTraits ? state.allSongTraits.length : null
 
   const songTraitsEdited = [
-    {trait: "acousticness", value: acousticness / length},
+    {trait: "acoustics", value: acousticness / length},
     {trait: "danceability", value: danceability / length},
     {trait: "energy", value: energy / length},
-    {trait: "instrumentalness", value: instrumentalness / length},
-    {trait: "liveness", value: liveness / length},
+    {trait: "instrumentals", value: instrumentalness / length},
     {trait: "speechiness", value: speechiness / length},
+    {trait: "liveness", value: liveness / length},
     {trait: "valence", value: valence / length}
   ]
+
 
   return ({
     allSongTraits: songTraitsEdited

@@ -27,19 +27,21 @@ class TraitBarChart extends Component {
       return (
       <div>
         <div className="chart center-container">
-          <ResponsiveContainer>
+            <ResponsiveContainer>
             <BarChart
-            width={1000}
-            height={500}
+            class="barchart"
+            layout="vertical"
+            height={500} width={650}
             data={this.state.data}
-            margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+            margin={{top: 5, right: 20, left: 40, bottom: 5}}>
             <XAxis
+            type="number"
+             />
+            <YAxis
             dataKey="trait"
-            />
-            <YAxis />
+            type="category" />
             <Bar
             dataKey="value"
-            // fill="#34113f"
             fill="#faa916"
             />
             </BarChart>

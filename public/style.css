@@ -116,10 +116,9 @@ form div {
 }
 
 .chart {
-  height: 75%;
-  width: auto;
   text-align: center;
   border: solid 1px #84848496;
+  font-size: 0.8em;
 }
 
 .spotify-logo {
@@ -215,18 +214,92 @@ input:checked + .slider:before {
 .center-container {
   display: flex;
   justify-content: center;
-  width: 100vw;
-  height: 80vh;
+  width: 95vw;
+  height: 500px;
 }
 
 
-@media (min-width: 600px) {
-  #staff .staff-profile {
-    flex: 0 0 50%;
+@media (max-width: 600px) {
+
+  h1 {
+    font-family: "Chelsea Market";
+    color: white;
+    font-size: 3vh;
+  }
+
+  h4 {
+    font-size: 0.9em;
+  }
+
+  .nav {
+    border-bottom: 2px solid rgb(0,0,0);
+    padding-bottom: 10px;
+    background-color: #af1b3f;
+    color: #FFFDF4;
+    height: 5em;
+    font-size: 0.8em;
+  }
+
+  .login {
+    font-size: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    margin-left: 30px;
+    margin-right: 30px;
+    text-align: center;
+  }
+
+  .nav a {
+    margin: 0.25em;
+  }
+
+  .login-link {
+    width: 75%;
+    height: auto;
+    border: solid 2px #84848496;
+    display: flex;
+    align-items: center;
+    background-color: #c4dacf;
+    border-radius: 25px;
+    font-size: 0.4em;
+  }
+
+  .login a {
+    color: #011936;
+    size: 0.2em;
+  }
+
+  .spotify-logo {
+    height: 9vh;
+  }
+
+  .top-song {
+    margin: 10px;
+    flex: 0 0 80%;
+    justify-content: center;
+    text-align: center;
+    background-color: #fffdf4;
+    padding: 10px;
+    border: solid 1px #84848496;
+    color: #473144;
+  }
+
+  .chart {
+    text-align: center;
+    border: solid 1px #84848496;
+    font-size: 0.65em;
+  }
+
+  .graph-title {
+    width: 90%;
+    font-size: 1.3em;
+  }
+
+  .nav-img {
+    height: 4vh;
   }
 }
-@media (min-width: 960px) {
-  #staff .staff-profile {
-    flex: 0 0 33%;
-  }
-}
+
