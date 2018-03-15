@@ -31,7 +31,7 @@ class TraitRadarChart extends Component {
           <RadarChart
           width={600}
           height={500}
-          margin={{top: 5, right: 20, left: 20, bottom: 5}}
+          margin={{top: 0, right: 20, left: 20, bottom: 0}}
           data={this.state.data}>
           <PolarGrid />
           <PolarAngleAxis
