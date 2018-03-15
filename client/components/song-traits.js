@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchSongTraits } from '../store'
-import TestBarChart from './test-bar-chart'
-import TestRadarChart from './test-radar-chart'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import BarChart from './bar-chart';
+import RadarChart from './radar-chart';
+import {setCurrentSong} from '../store';
 
 class SongTraits extends Component {
 
@@ -10,21 +10,25 @@ class SongTraits extends Component {
     super(props);
 
     this.state = {
-      songTraits: this.props.songTraits,
+      currentSong: this.props.currentSong,
+      currentSongTraits: this.props.currentSongTraits,
       selectedChart: true
     }
     this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    const songId = this.props.match.params.songId;
-    this.props.fetchSongTraits(this.props.accessToken, this.props.refreshToken, songId);
+    window.scroll(0, 0);
+    const currentSongId = this.props.match.params.songId;
+    const currentSong = this.props.songs.filter(song => song.id === currentSongId)[0];
+    this.props.setCurrentSong(currentSong);
   }
 
-  componentWillReceiveProps(newProps, oldProps) {
-    if (newProps.songTraits !== oldProps.songTraits) {
+  componentWillReceiveProps(newProps) {
+    if (newProps.currentSong !== this.props.currentSong) {
       this.setState({
-        songTraits: newProps.songTraits
+        currentSong: newProps.currentSong,
+        currentSongTraits: newProps.currentSongTraits
       })
     }
   }
@@ -36,16 +40,14 @@ class SongTraits extends Component {
   }
 
   render() {
-    const song = this.props.song[0] || []
-    const songName = song.name || ''
-    const songArtists = song.artists ? song.artists[0].name : []
-
-    if (!this.state.songTraits[0].value) return <div />;
+    const songName = this.state.currentSong.name || ''
+    const songArtists = this.state.currentSong.artists ? this.state.currentSong.artists[0].name : []
+    if (!this.state.currentSongTraits.length) return <div />;
     else {
       return (
         <div className="main">
           <div className="container">
-            <h2>{songName} by {songArtists}</h2>
+            <h2 className="graph-title">{songName} by {songArtists}</h2>
 
             <label className="switch">
               <input onClick={this.handleClick}type="checkbox" />
@@ -55,8 +57,8 @@ class SongTraits extends Component {
 
           <div>
             {this.state.selectedChart ?
-            <TestRadarChart data={this.state.songTraits} />
-            :  <TestBarChart data={this.state.songTraits} />
+            <RadarChart data={this.state.currentSongTraits} />
+            : <BarChart data={this.state.currentSongTraits} />
             }
           </div>
         </div>
@@ -66,27 +68,30 @@ class SongTraits extends Component {
 }
 
 // Container
-const mapState = (state) => {
-  const song = state.songs.filter(songEl => songEl.id === state.songTraits.id)
+const mapState = state => {
+  const currentSongTraits = state.allSongTraits.filter(songEl => songEl.id === state.currentSong.id)[0]
 
-  const songTraitsEdited = [
-    {"trait": "acousticness", "value": state.songTraits.acousticness},
-    {"trait": "danceability", "value": state.songTraits.danceability},
-    {"trait": "energy", "value": state.songTraits.energy},
-    {"trait": "instrumentalness", "value": state.songTraits.instrumentalness},
-    {"trait": "liveness", "value":state.songTraits.liveness},
-    {"trait": "speechiness", "value": state.songTraits.speechiness},
-    {"trait": "valence", "value": state.songTraits.valence}
-  ]
+  let songTraitsEdited = []
+
+  if (currentSongTraits) {
+    songTraitsEdited = [
+      {trait: "acoustics", value: currentSongTraits.acousticness},
+      {trait: "danceability", value: currentSongTraits.danceability},
+      {trait: "energy", value: currentSongTraits.energy},
+      {trait: "instrumentals", value: currentSongTraits.instrumentalness},
+      {trait: "speechiness", value: currentSongTraits.speechiness},
+      {trait: "liveness", value: currentSongTraits.liveness},
+      {trait: "valence", value: currentSongTraits.valence}
+    ]
+}
 
   return {
-    accessToken: state.user.accessToken,
-    refreshToken: state.user.refreshToken,
-    songTraits: songTraitsEdited,
-    song
+    currentSongTraits: songTraitsEdited,
+    currentSong: state.currentSong,
+    songs: state.songs
   }
 }
 
-const mapDispatch = { fetchSongTraits }
+const mapDispatch = {setCurrentSong}
 
 export default connect(mapState, mapDispatch)(SongTraits);

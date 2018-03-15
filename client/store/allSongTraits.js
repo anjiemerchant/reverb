@@ -10,13 +10,13 @@ const getAllSongTraits = traits => ({
 });
 
 // reducer
-export default (allTraits = [], action) => {
+export default (allSongTraits = [], action) => {
   switch (action.type) {
     case GET_ALL_SONG_TRAITS:
       return action.traits;
 
   default:
-    return allTraits;
+    return allSongTraits;
   }
 }
 
