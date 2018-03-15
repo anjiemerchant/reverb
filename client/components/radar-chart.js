@@ -24,7 +24,6 @@ class TraitRadarChart extends Component {
     if (!this.state.data[0].value) return <div>Your taste is being calculated...</div>
 
     else {
-      console.log(this.state.data, "this.state.data")
       return (
       <div>
        <div className="chart center-container">
