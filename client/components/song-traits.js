@@ -18,6 +18,7 @@ class SongTraits extends Component {
   }
 
   componentDidMount() {
+    window.scroll(0, 0);
     const currentSongId = this.props.match.params.songId;
     const currentSong = this.props.songs.filter(song => song.id === currentSongId)[0];
     this.props.setCurrentSong(currentSong);
