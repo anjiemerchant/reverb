@@ -46,7 +46,6 @@
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.3.1",
-    "socket.io": "^2.0.3",
     "webpack": "^4.0.1",
     "webpack-cli": "^2.0.9"
   },
