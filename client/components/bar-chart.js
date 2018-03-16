@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import {BarChart, Bar, XAxis, YAxis, ResponsiveContainer} from 'recharts';
-import {MeasureDefinitions} from './measure-definitions'
+import {MeasureDefinitions} from './measure-definitions';
 
 class TraitBarChart extends Component {
   constructor(props) {

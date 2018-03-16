@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import BarChart from './bar-chart'
-import RadarChart from './radar-chart'
+import BarChart from './bar-chart';
+import RadarChart from './radar-chart';
 
 class SongTraitSummary extends Component {
 

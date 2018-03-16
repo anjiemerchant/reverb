@@ -7,20 +7,8 @@ module.exports = {
       'Authorization': 'Bearer ' + accessToken,
       'Content-Type': 'application/json'
     }
-      // limit=50
-      // time_range=long_term (several years)
-      // time_range=medium_term (six months)
-      // time_range=short_term (last month)
   }),
-  // features: (accessToken, id) => ({
-  //   url: `https://api.spotify.com/v1/audio-features/${id}`,
-  //   headers: {
-  //     'Accept': 'application/json',
-  //     'Authorization': 'Bearer ' + accessToken,
-  //     'Content-Type': 'application/json'
-  //   }
-  // }),
-  featuresReverse: (id, accessToken)  => ({
+  features: (id, accessToken)  => ({
     url: `https://api.spotify.com/v1/audio-features/${id}`,
     headers: {
       'Accept': 'application/json',
@@ -28,18 +16,7 @@ module.exports = {
       'Content-Type': 'application/json'
     }
   }),
-  // featuresAggregate: (accessToken, ids) => {
-  //   const stringDelimitedIds = ids.join(',')
-  //   return {
-  //     url: `https://api.spotify.com/v1/audio-features/?ids=${stringDelimitedIds}`,
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Authorization': 'Bearer ' + accessToken,
-  //       'Content-Type': 'application/json'
-  //     }
-  //   }
-  // },
-  featuresAggregateReverse: (ids, accessToken) => {
+  featuresAggregate: (ids, accessToken) => {
     const stringDelimitedIds = ids.join(',')
     return {
       url: `https://api.spotify.com/v1/audio-features/?ids=${stringDelimitedIds}`,
@@ -50,17 +27,6 @@ module.exports = {
       }
     }
   },
-  // appAccess: () => {
-  //   return {
-  //     url: 'https://accounts.spotify.com/api/token',
-  //     headers: {
-  //       'Authorization': `Basic <base64 encoded ${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_ID}>`
-  //     },
-  //     body: {
-  //       'grant_type': 'client_credentials'
-  //     }
-  //   }
-  // },
   refreshUserAccess: refreshToken => {
     return {
       method: 'post',

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 import {Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer} from 'recharts';
-import {MeasureDefinitions} from './measure-definitions'
+import {MeasureDefinitions} from './measure-definitions';
 
 class TraitRadarChart extends Component {
   constructor(props) {

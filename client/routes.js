@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
-import {Login, AllSongs, SongTraits, SongTraitSummary} from './components'
-import {me, fetchSongs, fetchAllSongTraits} from './store'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {withRouter, Route, Switch} from 'react-router-dom';
+import {Login, AllSongs, SongTraits, SongTraitSummary} from './components';
+import {me, fetchSongs, fetchAllSongTraits} from './store';
 
 /**
  * COMPONENT
