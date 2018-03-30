@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import BarChart from './bar-chart';
 import RadarChart from './radar-chart';
+import {editSongTraitNames} from '../../utils.js'
 
 class SongTraitSummary extends Component {
 
@@ -43,39 +44,28 @@ class SongTraitSummary extends Component {
   }
 
 // Container
+
 const mapState = state => {
 
-  const acousticness = state.allSongTraits ? state.allSongTraits.map(trait => trait.acousticness)
-                                                                .reduce((acc, val) => acc + val, 0) : null
-  const danceability = state.allSongTraits ? state.allSongTraits.map(trait => trait.danceability)
-                                                                .reduce((acc, val) => acc + val, 0) : null
-  const energy  = state.allSongTraits ? state.allSongTraits.map(trait => trait.energy)
-                                                           .reduce((acc, val) => acc + val, 0) : null
-  const instrumentalness  = state.allSongTraits ?  state.allSongTraits.map(trait => trait.instrumentalness)
-                                                                      .reduce((acc, val) => acc + val, 0) : null
-  const liveness  = state.allSongTraits ? state.allSongTraits.map(trait => trait.liveness)
-                                                             .reduce((acc, val) => acc + val, 0) : null
-  const speechiness  = state.allSongTraits ? state.allSongTraits.map(trait => trait.speechiness)
-                                                                .reduce((acc, val) => acc + val, 0) : null
-  const valence  = state.allSongTraits ? state.allSongTraits.map(trait => trait.valence)
-                                                            .reduce((acc, val) => acc + val, 0) : null
+  const features = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'speechines', 'valence' ]
 
-  const length = state.allSongTraits ? state.allSongTraits.length : null
+  let featuresObj = state.allSongTraits ? state.allSongTraits.reduce((acc, curr) => {
+    features.forEach(feature => {
+        if (!acc[feature]) acc[feature] = [curr[feature]]
+        else acc[feature].push(curr[feature])
+    })
+    return acc
+  }, {}) : null
 
-  const songTraitsEdited = [
-    {trait: "acoustics", value: acousticness / length},
-    {trait: "danceability", value: danceability / length},
-    {trait: "energy", value: energy / length},
-    {trait: "instrumentals", value: instrumentalness / length},
-    {trait: "speechiness", value: speechiness / length},
-    {trait: "liveness", value: liveness / length},
-    {trait: "valence", value: valence / length}
-  ]
+  const featuresMean = {}
+  for (let key in featuresObj) {
+    featuresMean[key] = (featuresObj[key].reduce((acc, val) => acc + val, 0)) / featuresObj[key].length
+  }
 
+  const songTraitsEdited = editSongTraitNames(featuresMean)
 
-  return ({
-    allSongTraits: songTraitsEdited
-  })
+  return ({allSongTraits: songTraitsEdited})
+
 }
 
 export default connect(mapState, null)(SongTraitSummary);
