@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import BarChart from './bar-chart';
 import RadarChart from './radar-chart';
 import {setCurrentSong} from '../store';
+import {editSongTraitNames} from '../../utils.js'
 
 class SongTraits extends Component {
 
@@ -42,7 +43,7 @@ class SongTraits extends Component {
   render() {
     const songName = this.state.currentSong.name || ''
     const songArtists = this.state.currentSong.artists ? this.state.currentSong.artists[0].name : []
-    if (!this.state.currentSongTraits.length) return <div />;
+    if (!this.state.currentSongTraits) return <div />;
     else {
       return (
         <div className="main">
@@ -69,22 +70,8 @@ class SongTraits extends Component {
 
 // Container
 const mapState = state => {
-  const currentSongTraits = state.allSongTraits.filter(songEl => songEl.id === state.currentSong.id)[0]
-
-  let songTraitsEdited = []
-
-  if (currentSongTraits) {
-    songTraitsEdited = [
-      {trait: "acoustics", value: currentSongTraits.acousticness},
-      {trait: "danceability", value: currentSongTraits.danceability},
-      {trait: "energy", value: currentSongTraits.energy},
-      {trait: "instrumentals", value: currentSongTraits.instrumentalness},
-      {trait: "speechiness", value: currentSongTraits.speechiness},
-      {trait: "liveness", value: currentSongTraits.liveness},
-      {trait: "valence", value: currentSongTraits.valence}
-    ]
-}
-
+  let currentSongTraits = state.allSongTraits.filter(songEl => songEl.id === state.currentSong.id)[0]
+  let songTraitsEdited = currentSongTraits ? editSongTraitNames(currentSongTraits) : null
   return {
     currentSongTraits: songTraitsEdited,
     currentSong: state.currentSong,
